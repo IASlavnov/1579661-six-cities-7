@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Игорь Славнов](https://up.htmlacademy.ru/react/7/user/1579661).
-* Наставник: `Неизвестно`.
+* Студент: [Игорь Славнов](https://htmlacademy.ru/profile/id1579661).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
