@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HomePage from '../Home-page/Home-page';
+import CitiesPlaces from './Cities-places';
+import CitiesMap from './Cities-map';
 
-function App({ offers, offersCount }) {
+function Cities({ offers, offersCount }) {
   return (
-    <HomePage
-      offers={offers}
-      offersCount={offersCount}
-    />
+    <div className="cities">
+      <div className="cities__places-container container">
+        <CitiesPlaces
+          offers={offers}
+          offersCount={offersCount}
+        />
+        <CitiesMap />
+      </div>
+    </div>
   );
 }
 
-App.propTypes = {
+Cities.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -27,4 +33,4 @@ App.propTypes = {
   offersCount: PropTypes.number.isRequired,
 };
 
-export default App;
+export default Cities;
