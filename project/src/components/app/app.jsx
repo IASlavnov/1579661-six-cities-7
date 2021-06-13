@@ -1,30 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import HomePage from '../Home-page/Home-page';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import HomePage from '../Home-page/home-page';
+import SignIn from '../Sign-In/sign-in';
+import Favorites from '../Favorites/favorites';
+import Room from '../Room/room';
+import NotFound from '../Not-found/not-found';
+import { AppRoute } from '../../const';
+import { propTypes } from '../../utils/prop-types';
 
 function App({ offers, offersCount }) {
   return (
-    <HomePage
-      offers={offers}
-      offersCount={offersCount}
-    />
+    <BrowserRouter>
+      <Switch>
+        <Route path={AppRoute.ROOT} exact>
+          <HomePage
+            offers={offers}
+            offersCount={offersCount}
+          />
+        </Route>
+        <Route path={AppRoute.SIGNIN} exact>
+          <SignIn />
+        </Route>
+        <Route path={AppRoute.FAVORITES} exact>
+          <Favorites />
+        </Route>
+        <Route path={AppRoute.ROOM} exact>
+          <Room />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
-App.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      image: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      rating: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-  ) ,
-  offersCount: PropTypes.number.isRequired,
-};
+App.propTypes = propTypes;
 
 export default App;
