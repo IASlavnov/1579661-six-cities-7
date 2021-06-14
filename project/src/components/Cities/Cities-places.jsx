@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../Card/card';
-import { propTypes } from '../../utils/prop-types';
+import { offersPropTypes } from '../../utils/prop-types';
 
 function CitiesPlaces({ offers, offersCount }) {
   const cards = offers.map((offer) => <Card key={offer.id} offer={offer}/>);
@@ -30,6 +30,6 @@ function CitiesPlaces({ offers, offersCount }) {
   );
 }
 
-CitiesPlaces.propTypes = propTypes;
+CitiesPlaces.propTypes = offersPropTypes;
 
 export default CitiesPlaces;

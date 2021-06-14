@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Header/header';
 import Tabs from '../Tabs/tabs';
 import Cities from '../Cities/cities';
-import { propTypes } from '../../utils/prop-types';
+import { offersPropTypes } from '../../utils/prop-types';
 
 function HomePage({ offers, offersCount }) {
   return (
@@ -36,6 +36,6 @@ function HomePage({ offers, offersCount }) {
   );
 }
 
-HomePage.propTypes = propTypes;
+HomePage.propTypes = offersPropTypes;
 
 export default HomePage;

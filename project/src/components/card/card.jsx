@@ -1,6 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { offersPropTypes } from '../../utils/prop-types';
+import { cardPropTypes } from '../../utils/prop-types';
 
 function Card({offer: { id, isPremium, isFavorite, image, price, rating, title, type }}) {
   return (
@@ -44,6 +43,6 @@ function Card({offer: { id, isPremium, isFavorite, image, price, rating, title, 
   );
 }
 
-Card.propTypes = offersPropTypes;
+Card.propTypes = cardPropTypes;
 
 export default Card;

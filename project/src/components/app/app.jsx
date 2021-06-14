@@ -6,7 +6,7 @@ import Favorites from '../Favorites/favorites';
 import Room from '../Room/room';
 import NotFound from '../Not-found/not-found';
 import { AppRoute } from '../../const';
-import { propTypes } from '../../utils/prop-types';
+import { offersPropTypes } from '../../utils/prop-types';
 
 function App({ offers, offersCount }) {
   return (
@@ -35,6 +35,6 @@ function App({ offers, offersCount }) {
   );
 }
 
-App.propTypes = propTypes;
+App.propTypes = offersPropTypes;
 
 export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 import CitiesPlaces from './cities-places';
 import CitiesMap from './cities-map';
-import { propTypes } from '../../utils/prop-types';
+import { offersPropTypes } from '../../utils/prop-types';
 
 function Cities({ offers, offersCount }) {
   return (
@@ -17,6 +17,6 @@ function Cities({ offers, offersCount }) {
   );
 }
 
-Cities.propTypes = propTypes;
+Cities.propTypes = offersPropTypes;
 
 export default Cities;
