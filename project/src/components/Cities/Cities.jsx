@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import CitiesPlaces from './Cities-places';
-import CitiesMap from './Cities-map';
+import CitiesPlaces from './cities-places';
+import CitiesMap from './cities-map';
+import { offersPropTypes } from '../../utils/prop-types';
 
 function Cities({ offers, offersCount }) {
   return (
@@ -17,20 +17,6 @@ function Cities({ offers, offersCount }) {
   );
 }
 
-Cities.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      isPremium: PropTypes.bool.isRequired,
-      isFavorite: PropTypes.bool.isRequired,
-      image: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      rating: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-  ) ,
-  offersCount: PropTypes.number.isRequired,
-};
+Cities.propTypes = offersPropTypes;
 
 export default Cities;
