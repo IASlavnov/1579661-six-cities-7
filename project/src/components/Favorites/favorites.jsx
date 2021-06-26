@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../Header/header';
-import FavoritesList from '../Favorites-list/favorites-list';
+import FavoritesList from './favorites-list';
 import offersPropTypes from '../Cities/offers.prop';
 
 function Favorites({ offers }) {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const favoriteOffers = offers.filter(({ isFavorite }) => isFavorite);
 
   return (
     <div className="page">
