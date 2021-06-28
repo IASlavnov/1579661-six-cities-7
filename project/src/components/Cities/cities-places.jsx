@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Card from '../Card/card';
-import { offersPropTypes } from '../../utils/prop-types';
+import offersPropTypes from './offers.prop';
 
 function CitiesPlaces({ offers, offersCount }) {
-  const cards = offers.map((offer) => <Card key={offer.id} offer={offer}/>);
+  const [activeCard, setActiveCard] = useState(null);
+
+  const cards = offers.map((offer) => (
+    <Card
+      key={offer.id}
+      offer={offer}
+      onMouseEnter={() => setActiveCard(offer.id)}
+      onMouseLeave={() => setActiveCard(0)}
+    />
+  ));
+
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -30,6 +41,9 @@ function CitiesPlaces({ offers, offersCount }) {
   );
 }
 
-CitiesPlaces.propTypes = offersPropTypes;
+CitiesPlaces.propTypes = {
+  offers: offersPropTypes,
+  offersCount: PropTypes.number.isRequired,
+};
 
 export default CitiesPlaces;

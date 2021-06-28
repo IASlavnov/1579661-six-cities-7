@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../Header/header';
 import Tabs from '../Tabs/tabs';
 import Cities from '../Cities/cities';
-import { offersPropTypes } from '../../utils/prop-types';
+import offersPropTypes from '../Cities/offers.prop';
 
 function HomePage({ offers, offersCount }) {
   return (
@@ -36,6 +37,9 @@ function HomePage({ offers, offersCount }) {
   );
 }
 
-HomePage.propTypes = offersPropTypes;
+HomePage.propTypes = {
+  offers: offersPropTypes,
+  offersCount: PropTypes.number.isRequired,
+};
 
 export default HomePage;

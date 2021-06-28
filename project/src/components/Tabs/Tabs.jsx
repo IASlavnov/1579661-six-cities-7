@@ -1,4 +1,5 @@
 import React from 'react';
+import Tab from './tab';
 
 const cities =['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
@@ -9,13 +10,9 @@ function Tabs() {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {cities.map((city) => (
-              <li className="locations__item" key={city}>
-                <a className="locations__item-link tabs__item" href={`/${city}`}>
-                  <span>{city}</span>
-                </a>
-              </li>
-            ))};
+            {
+              cities.map((city) => <Tab key={city} city={city} />)
+            }
           </ul>
         </section>
       </div>
