@@ -24,8 +24,8 @@ const offers = [
     isPremium: true,
     isFavorite: false,
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -39,13 +39,13 @@ const offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 50.370216,
-        longitude: 6.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Hamburg',
+      name: 'Amsterdam',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Hamburg.',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam2.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Dishwasher'],
     host: {
       avatarUrl: 'img/avatar-max.jpg',
@@ -58,8 +58,8 @@ const offers = [
     isPremium: false,
     isFavorite: true,
     location: {
-      latitude: 50.370216,
-      longitude: 6.895168,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -73,13 +73,13 @@ const offers = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 55.370216,
-        longitude: 7.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Brussels',
+      name: 'Amsterdam',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Brussels.',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam3.',
     goods: ['Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: {
       avatarUrl: 'img/avatar-angelina.jpg',
@@ -92,8 +92,8 @@ const offers = [
     isPremium: false,
     isFavorite: false,
     location: {
-      latitude: 55.370216,
-      longitude: 7.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 3,
@@ -107,13 +107,13 @@ const offers = [
     bedrooms: 4,
     city: {
       location: {
-        latitude: 45.370216,
-        longitude: 10.895168,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
-      name: 'Hamburg',
+      name: 'Amsterdam',
     },
-    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Dusseldorf.',
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam4.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Coffee machine', 'Dishwasher'],
     host: {
       avatarUrl: 'img/avatar-max.jpg',
@@ -126,8 +126,8 @@ const offers = [
     isPremium: true,
     isFavorite: true,
     location: {
-      latitude: 45.370216,
-      longitude: 10.895168,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     maxAdults: 4,
