@@ -1,6 +1,5 @@
 import React from 'react';
 import offersPropTypes from './offers.prop';
-import CitiesPlaces from './cities-places';
 import Map from '../Map/map';
 
 function CitiesMap({ offers }) {

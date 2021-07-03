@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReviewStar from "./review-star";
+import ReviewStar from './review-star';
 
 function ReviewForm() {
   const [review, setReview] = useState('');

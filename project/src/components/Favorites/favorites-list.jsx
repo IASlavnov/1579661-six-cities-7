@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import FavoriteItem from "./favorite-item";
+import FavoriteItem from './favorite-item';
 import offersPropTypes from '../Cities/offers.prop';
 
 
