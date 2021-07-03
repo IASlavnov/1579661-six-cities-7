@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import FavoriteCard from './favorite-card';
 import PropTypes from 'prop-types';
 import offersPropTypes from '../Cities/offers.prop';

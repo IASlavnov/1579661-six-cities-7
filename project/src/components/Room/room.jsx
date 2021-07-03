@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import Header from '../Header/header';
+import Header from '../Header/header.jsx';
 import ReviewForm from '../Review-form/review-form';
 
 function Room() {

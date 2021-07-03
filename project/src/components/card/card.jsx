@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cardPropTypes from './offer.prop';
 
 function Card({offer: { id, isPremium, isFavorite, previewImage, price, rating, title, type },
-              onMouseEnter, onMouseLeave}) {
+  onMouseEnter, onMouseLeave}) {
   return (
     <article
       className="cities__place-card place-card"
@@ -16,8 +16,7 @@ function Card({offer: { id, isPremium, isFavorite, previewImage, price, rating, 
         <div className="place-card__mark">
           <span>Premium</span>
         </div> :
-        null
-      }
+        null}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.OFFER}/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>

@@ -12,7 +12,7 @@ function Cities({ offers, offersCount }) {
           offers={offers}
           offersCount={offersCount}
         />
-        <CitiesMap />
+        <CitiesMap offers={offers} />
       </div>
     </div>
   );
