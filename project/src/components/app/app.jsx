@@ -8,8 +8,9 @@ import Room from '../Room/room';
 import NotFound from '../Not-found/not-found';
 import { AppRoute } from '../../const';
 import offersPropTypes from '../Cities/offers.prop';
+import reviewsPropTypes from '../Review/reviews.prop';
 
-function App({ offers, offersCount }) {
+function App({ offers, offersCount, reviews }) {
   return (
     <BrowserRouter>
       <Switch>
@@ -28,7 +29,10 @@ function App({ offers, offersCount }) {
           />
         </Route>
         <Route path={AppRoute.ROOM} exact>
-          <Room />
+          <Room
+            reviews={reviews}
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFound />
@@ -41,6 +45,7 @@ function App({ offers, offersCount }) {
 App.propTypes = {
   offers: offersPropTypes,
   offersCount: PropTypes.number.isRequired,
+  reviews: reviewsPropTypes,
 };
 
 export default App;

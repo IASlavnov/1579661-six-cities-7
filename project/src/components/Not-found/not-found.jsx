@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import Header from '../Header/header.jsx';
+import Header from '../Header/header';
 
 function NotFound() {
   return (

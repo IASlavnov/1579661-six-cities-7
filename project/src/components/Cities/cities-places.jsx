@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card/card';
 import offersPropTypes from './offers.prop';
+import { PlaceType } from '../../const';
 
 function CitiesPlaces({ offers, offersCount }) {
   const [activeCard, setActiveCard] = useState(null);
@@ -12,6 +13,7 @@ function CitiesPlaces({ offers, offersCount }) {
       offer={offer}
       onMouseEnter={() => setActiveCard(offer.id)}
       onMouseLeave={() => setActiveCard(0)}
+      placeType={PlaceType.MAIN}
     />
   ));
 

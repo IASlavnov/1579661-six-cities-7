@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import FavoriteCard from './favorite-card';
+import Card from '../Card/card';
 import PropTypes from 'prop-types';
 import offersPropTypes from '../Cities/offers.prop';
+import { PlaceType } from '../../const';
 
 function FavoriteItem({ city, offers }) {
   return (
@@ -16,7 +17,7 @@ function FavoriteItem({ city, offers }) {
       </div>
       <div className="favorites__places">
         {
-          offers.map((offer) => <FavoriteCard offer={offer} key={offer.id} />)
+          offers.map((offer) => <Card offer={offer} key={offer.id} placeType={PlaceType.FAVORITES} />)
         }
       </div>
     </li>
