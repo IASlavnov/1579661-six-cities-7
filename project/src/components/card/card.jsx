@@ -3,26 +3,33 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import PropTypes from 'prop-types';
 import cardPropTypes from './offer.prop';
+import { PlaceCardType } from '../../const';
 
 function Card({offer: { id, isPremium, isFavorite, previewImage, price, rating, title, type },
-  onMouseEnter, onMouseLeave}) {
+  onMouseEnter = () => {}, onMouseLeave = () => {}, placeType}) {
   return (
     <article
-      className="cities__place-card place-card"
+      className={PlaceCardType[placeType].className}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      { isPremium ?
+      { isPremium ?? (
         <div className="place-card__mark">
           <span>Premium</span>
-        </div> :
-        null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+        </div>
+      )}
+      <div className={`${PlaceCardType[placeType].type}__image-wrapper`}>
         <Link to={`${AppRoute.OFFER}/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={PlaceCardType[placeType].width}
+            height={PlaceCardType[placeType].height}
+            alt="Place"
+          />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={PlaceCardType[placeType].classNameInfo}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -57,6 +64,7 @@ Card.propTypes = {
   offer: cardPropTypes,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  placeType: PropTypes.string.isRequired,
 };
 
 export default Card;
