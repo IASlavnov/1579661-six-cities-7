@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { connect } from 'react-redux';
 import Header from '../Header/header';
 import FavoritesList from './favorites-list';
 import offersPropTypes from '../Cities/offers.prop';
@@ -30,4 +31,9 @@ Favorites.propTypes = {
   offers: offersPropTypes,
 };
 
-export default Favorites;
+const mapStateToProps = ({ offers }) => ({
+  offers,
+});
+
+export { Favorites };
+export default connect(mapStateToProps, null)(Favorites);

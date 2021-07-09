@@ -1,47 +1,43 @@
 import React, {useEffect, useRef} from 'react';
+import useMap from '../../hooks/use-map';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { connect } from 'react-redux';
 import offersPropTypes from '../Cities/offers.prop';
 
-const AMSTERDAM_LOCATION = [52.38333, 4.9];
-const ZOOM = 12;
+const FIRST_INDEX = 0;
+const MARKER_URL = 'img/pin.svg';
 
 const icon = leaflet.icon({
-  iconUrl: 'img/pin.svg',
+  iconUrl: MARKER_URL,
   iconSize: [30, 30],
   iconAnchor: [15, 30],
 });
 
-function Map({ offers }) {
+function Map({ offers, filteredOffers }) {
+  const city = offers[FIRST_INDEX].city;
   const mapRef = useRef(null);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
-    const map = leaflet.map(mapRef.current, {
-      center: AMSTERDAM_LOCATION,
-      zoom: ZOOM,
-      zoomControl: false,
-      marker: true,
-    });
-
-    map.setView(AMSTERDAM_LOCATION, ZOOM);
-
-    leaflet
-      .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      })
-      .addTo(map);
-
-    const offerCoords = offers.map(({ location: { latitude, longitude }}) => [
-      latitude,
-      longitude,
-    ]);
-
-    offerCoords.forEach((coords) => {
-      leaflet
-        .marker(coords, { icon })
-        .addTo(map);
-    });
-  }, [offers]);
+    if (map) {
+      map.eachLayer((layer) => {
+        if (layer.getElement) {
+          layer.remove();
+        }
+      });
+      filteredOffers.forEach((ad) => {
+        leaflet
+          .marker({
+            lat: ad.location.latitude,
+            lng: ad.location.longitude,
+          }, {
+            icon: icon,
+          })
+          .addTo(map);
+      });
+    }
+  }, [map, filteredOffers]);
 
   return (
     <div
@@ -55,6 +51,13 @@ function Map({ offers }) {
 
 Map.propTypes = {
   offers: offersPropTypes,
+  filteredOffers: offersPropTypes,
 };
 
-export default Map;
+const mapStateToProps = ({ offers, filteredOffers }) => ({
+  offers,
+  filteredOffers,
+});
+
+export { Map };
+export default connect(mapStateToProps, null)(Map);

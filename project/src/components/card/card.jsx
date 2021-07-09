@@ -62,8 +62,8 @@ function Card({offer: { id, isPremium, isFavorite, previewImage, price, rating, 
 
 Card.propTypes = {
   offer: cardPropTypes,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   placeType: PropTypes.string.isRequired,
 };
 

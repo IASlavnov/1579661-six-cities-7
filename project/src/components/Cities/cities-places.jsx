@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Card from '../Card/card';
 import offersPropTypes from './offers.prop';
 import { PlaceType } from '../../const';
 
-function CitiesPlaces({ offers, offersCount }) {
+function CitiesPlaces({ filteredOffers, city }) {
   const [activeCard, setActiveCard] = useState(null);
 
-  const cards = offers.map((offer) => (
+  const cards = filteredOffers.map((offer) => (
     <Card
       key={offer.id}
       offer={offer}
@@ -20,7 +21,7 @@ function CitiesPlaces({ offers, offersCount }) {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+      <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex="0">
@@ -44,8 +45,14 @@ function CitiesPlaces({ offers, offersCount }) {
 }
 
 CitiesPlaces.propTypes = {
-  offers: offersPropTypes,
-  offersCount: PropTypes.number.isRequired,
+  filteredOffers: offersPropTypes,
+  city: PropTypes.string.isRequired,
 };
 
-export default CitiesPlaces;
+const mapStateToProps = ({ city, filteredOffers }) => ({
+  city,
+  filteredOffers,
+});
+
+export { CitiesPlaces };
+export default connect(mapStateToProps, null)(CitiesPlaces);
