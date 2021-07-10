@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../Header/header';
 import Tabs from '../Tabs/tabs';
 import Cities from '../Cities/cities';
-import offersPropTypes from '../Cities/offers.prop';
+import { CITIES } from '../../const';
 
-function HomePage({ offers, offersCount }) {
+function HomePage() {
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -26,20 +25,12 @@ function HomePage({ offers, offersCount }) {
         <Header />
 
         <main className="page__main page__main--index">
-          <Tabs />
-          <Cities
-            offers={offers}
-            offersCount={offersCount}
-          />
+          <Tabs cities={CITIES} />
+          <Cities />
         </main>
       </div>
     </>
   );
 }
-
-HomePage.propTypes = {
-  offers: offersPropTypes,
-  offersCount: PropTypes.number.isRequired,
-};
 
 export default HomePage;
