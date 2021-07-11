@@ -3,10 +3,12 @@ import useMap from '../../hooks/use-map';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import offersPropTypes from '../Cities/offers.prop';
 
 const FIRST_INDEX = 0;
 const MARKER_URL = 'img/pin.svg';
+const ACTIVE_MARKER_URL = 'img/pin-active.svg';
 
 const icon = leaflet.icon({
   iconUrl: MARKER_URL,
@@ -14,7 +16,24 @@ const icon = leaflet.icon({
   iconAnchor: [15, 30],
 });
 
-function Map({ offers, filteredOffers }) {
+const activeIcon = leaflet.icon({
+  iconUrl: ACTIVE_MARKER_URL,
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+});
+
+const addMarker = (offer, map, markerIcon) => {
+  leaflet
+    .marker({
+      lat: offer.location.latitude,
+      lng: offer.location.longitude,
+    }, {
+      icon: markerIcon,
+    })
+    .addTo(map);
+};
+
+function Map({ offers, filteredOffers, activeCard }) {
   const city = offers[FIRST_INDEX].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -26,18 +45,14 @@ function Map({ offers, filteredOffers }) {
           layer.remove();
         }
       });
-      filteredOffers.forEach((ad) => {
-        leaflet
-          .marker({
-            lat: ad.location.latitude,
-            lng: ad.location.longitude,
-          }, {
-            icon: icon,
-          })
-          .addTo(map);
-      });
+
+      const active = filteredOffers.find((offer) => offer.id === activeCard);
+      active && addMarker(active, map, activeIcon);
+      filteredOffers
+        .filter((offer) => offer.id !== activeCard)
+        .forEach((offer) => addMarker(offer, map, icon));
     }
-  }, [map, filteredOffers]);
+  }, [map, filteredOffers, activeCard]);
 
   return (
     <div
@@ -52,11 +67,13 @@ function Map({ offers, filteredOffers }) {
 Map.propTypes = {
   offers: offersPropTypes,
   filteredOffers: offersPropTypes,
+  activeCard: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ offers, filteredOffers }) => ({
+const mapStateToProps = ({ offers, filteredOffers, activeCard }) => ({
   offers,
   filteredOffers,
+  activeCard,
 });
 
 export { Map };
