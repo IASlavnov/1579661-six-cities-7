@@ -13,7 +13,7 @@ function CitiesPlaces({ filteredOffers, city, sortType, setActiveCard }) {
 
   useEffect(() => {
     setSort(offersForSort, sortType);
-  }, [filteredOffers, sortType]);
+  }, [offersForSort, filteredOffers, sortType]);
 
   const cards = offersForSort.map((offer) => (
     <Card
