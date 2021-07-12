@@ -1,5 +1,6 @@
 import offers from '../mocks/offers';
 import reviews from '../mocks/reviews';
+import { SortType } from '../const';
 import { ActionType  } from './action';
 
 const INITIAL_CITY = 'Amsterdam';
@@ -9,6 +10,8 @@ const initialState = {
   offers,
   reviews,
   filteredOffers: offers.filter(({ city }) => city.name === INITIAL_CITY),
+  sortType: SortType.POPULAR,
+  activeCard: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +24,18 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_OFFERS:
       return {
         ...state,
-        filteredOffers: offers.filter(({ city }) => city.name === action.payload),
+        filteredOffers: offers
+          .filter(({ city }) => city.name === action.payload),
+      };
+    case ActionType.SET_SORT_TYPE:
+      return {
+        ...state,
+        sortType: action.payload,
+      };
+    case ActionType.SET_ACTIVE_CARD:
+      return {
+        ...state,
+        activeCard: action.payload,
       };
     default:
       return state;
