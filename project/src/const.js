@@ -57,3 +57,7 @@ export const CITIES = [
   'Hamburg',
   'Dusseldorf',
 ];
+
+export const ApiRoute = {
+  HOTELS: '/hotels',
+};

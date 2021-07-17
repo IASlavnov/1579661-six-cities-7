@@ -33,8 +33,8 @@ const addMarker = (offer, map, markerIcon) => {
     .addTo(map);
 };
 
-function Map({ offers, filteredOffers, activeCard }) {
-  const city = offers[FIRST_INDEX].city;
+function Map({ filteredOffers, activeCard }) {
+  const city = filteredOffers[FIRST_INDEX].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -65,13 +65,11 @@ function Map({ offers, filteredOffers, activeCard }) {
 }
 
 Map.propTypes = {
-  offers: offersPropTypes,
   filteredOffers: offersPropTypes,
-  activeCard: PropTypes.string.isRequired,
+  activeCard: PropTypes.number,
 };
 
-const mapStateToProps = ({ offers, filteredOffers, activeCard }) => ({
-  offers,
+const mapStateToProps = ({ filteredOffers, activeCard }) => ({
   filteredOffers,
   activeCard,
 });

@@ -3,6 +3,7 @@ export const ActionType = {
   SET_OFFERS: 'SET_OFFERS',
   SET_SORT_TYPE: 'SET_SORT_TYPE',
   SET_ACTIVE_CARD: 'SET_ACTIVE_CARD',
+  LOAD_OFFERS: 'LOAD_OFFERS',
 };
 
 export const ActionCreator = {
@@ -18,8 +19,12 @@ export const ActionCreator = {
     type: ActionType.SET_SORT_TYPE,
     payload: sortType,
   }),
-  setActiveCard: (cardId = '') => ({
+  setActiveCard: (cardId = null) => ({
     type: ActionType.SET_ACTIVE_CARD,
     payload: cardId,
+  }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers,
   }),
 };
