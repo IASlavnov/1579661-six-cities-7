@@ -1,17 +1,18 @@
-import offers from '../mocks/offers';
 import reviews from '../mocks/reviews';
 import { SortType } from '../const';
 import { ActionType  } from './action';
+import { adaptOffers } from '../utils/adapter';
 
-const INITIAL_CITY = 'Amsterdam';
+const INITIAL_CITY = 'Paris';
 
 const initialState = {
   city: INITIAL_CITY,
-  offers,
+  offers: [],
   reviews,
-  filteredOffers: offers.filter(({ city }) => city.name === INITIAL_CITY),
+  filteredOffers: [],
   sortType: SortType.POPULAR,
-  activeCard: '',
+  activeCard: null,
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +25,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_OFFERS:
       return {
         ...state,
-        filteredOffers: offers
+        filteredOffers: state.offers
           .filter(({ city }) => city.name === action.payload),
       };
     case ActionType.SET_SORT_TYPE:
@@ -36,6 +37,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCard: action.payload,
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: adaptOffers(action.payload),
+        filteredOffers: adaptOffers(action.payload)
+          .filter(({ city }) => city.name === state.city),
+        isDataLoaded: true,
       };
     default:
       return state;

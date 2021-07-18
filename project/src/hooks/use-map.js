@@ -26,6 +26,8 @@ function useMap(mapRef, city) {
         .addTo(instance);
 
       setMap(instance);
+    } else {
+      map.panTo(new leaflet.LatLng(city.location.latitude, city.location.longitude));
     }
   }, [mapRef, map, city]);
 
