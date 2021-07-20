@@ -9,13 +9,16 @@ import Favorites from '../Favorites/favorites';
 import Room from '../Room/room';
 import NotFound from '../Not-found/not-found';
 import Spinner from '../Spinner/spinner';
+import Error from '../Error/error';
 import { AppRoute } from '../../const';
 import { isCheckedAuth } from '../../utils/auth';
 import browserHistory from '../../browser-history';
 
-function App({ isDataLoaded, authorizationStatus }) {
+function App({ isDataLoaded, authorizationStatus, error }) {
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <Spinner />;
+  } else if (error) {
+    return <Error message={error} />;
   }
 
   return (
@@ -50,11 +53,13 @@ function App({ isDataLoaded, authorizationStatus }) {
 App.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
 
-const mapStateToProps = ({ isDataLoaded, authorizationStatus }) => ({
+const mapStateToProps = ({ isDataLoaded, authorizationStatus, error }) => ({
   isDataLoaded,
   authorizationStatus,
+  error,
 });
 
 export { App };

@@ -15,6 +15,7 @@ const initialState = {
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   email: '',
+  error: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -62,6 +63,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         email: action.payload,
+      };
+    case ActionType.SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

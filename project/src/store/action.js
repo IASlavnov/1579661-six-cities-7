@@ -8,6 +8,7 @@ export const ActionType = {
   LOGOUT: 'LOGOUT',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
   SET_USER: 'SET_USER',
+  SET_ERROR: 'SET_ERROR',
 };
 
 export const ActionCreator = {
@@ -45,5 +46,9 @@ export const ActionCreator = {
   setUser: (email) => ({
     type: ActionType.SET_USER,
     payload: email,
+  }),
+  setError: (message) => ({
+    type: ActionType.SET_ERROR,
+    payload: message,
   }),
 };
