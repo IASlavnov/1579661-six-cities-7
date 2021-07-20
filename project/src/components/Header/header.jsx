@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { logout } from '../../store/api-action';
 
-function Header() {
+function Header({ authorizationStatus, email, logoutApp }) {
   return (
     <header className="header">
       <div className="container">
@@ -14,18 +17,41 @@ function Header() {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </Link>
-              </li>
-              <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.ROOT}>
-                  <span className="header__signout">Sign out</span>
-                </Link>
-              </li>
+              {
+                authorizationStatus === AuthorizationStatus.AUTH
+                  ? (
+                    <>
+                      <li className="header__nav-item user">
+                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
+                          <div className="header__avatar-wrapper user__avatar-wrapper">
+                          </div>
+                          <span className="header__user-name user__name">{email}</span>
+                        </Link>
+                      </li>
+                      <li className="header__nav-item">
+                        <Link
+                          onClick={(evt) => {
+                            evt.preventDefault();
+                            logoutApp();
+                          }}
+                          className="header__nav-link"
+                          to='/'
+                        >
+                          <span className="header__signout">Sign out</span>
+                        </Link>
+                      </li>
+                    </>
+                  )
+                  : (
+                    <li className="header__nav-item user">
+                      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.SIGNIN}>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        </div>
+                        <span className="header__login">Sign in</span>
+                      </Link>
+                    </li>
+                  )
+              }
             </ul>
           </nav>
         </div>
@@ -34,4 +60,22 @@ function Header() {
   );
 }
 
-export default Header;
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  logoutApp: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = ({ authorizationStatus, email }) => ({
+  authorizationStatus,
+  email,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutApp() {
+    dispatch(logout());
+  },
+});
+
+export { Header };
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
