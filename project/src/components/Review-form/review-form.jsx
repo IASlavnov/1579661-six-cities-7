@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { sendComment } from '../../store/api-action';
 import ReviewStar from './review-star';
+import { commentIsValid } from '../../utils/comment-valid';
 
-function ReviewForm() {
+function ReviewForm({ submitHandler }) {
   const [review, setReview] = useState('');
+  const [rating, setRating] = useState(0);
+  const { id } = useParams();
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form
+      onSubmit={(evt) => {
+        evt.preventDefault();
+        submitHandler(id, {comment: review, rating: rating});
+        setReview('');
+        setRating(0);
+      }}
+      className="reviews__form form"
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
@@ -15,7 +32,14 @@ function ReviewForm() {
             {stars: 3, title: 'not bad'},
             {stars: 2, title: 'badly'},
             {stars: 1, title: 'terrible'},
-          ].map(({ stars, title }) => <ReviewStar key={title} stars={stars} title={title} />)
+          ].map(({ stars, title }) => (
+            <ReviewStar
+              onChange={(value) => setRating(value)}
+              key={title}
+              stars={stars}
+              title={title}
+            />
+          ))
         }
       </div>
       <textarea
@@ -31,10 +55,27 @@ function ReviewForm() {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={!commentIsValid(review, rating)}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );
 }
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  submitHandler: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  submitHandler(id, data) {
+    dispatch(sendComment(id, data));
+  },
+});
+
+export { ReviewForm };
+export default connect(null, mapDispatchToProps)(ReviewForm);

@@ -4,6 +4,7 @@ export const AppRoute = {
   FAVORITES: '/favorites',
   OFFER: '/offer',
   ROOM: '/offer/:id',
+  NOT_FOUND: '/not-found',
 };
 
 export const PlaceType = {
@@ -62,6 +63,7 @@ export const ApiRoute = {
   HOTELS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  COMMENTS: '/comments',
 };
 
 export const AuthorizationStatus = {

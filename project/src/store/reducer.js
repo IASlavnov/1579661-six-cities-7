@@ -1,14 +1,15 @@
-import reviews from '../mocks/reviews';
 import { SortType, AuthorizationStatus } from '../const';
 import { ActionType  } from './action';
-import { adaptOffers } from '../utils/adapter';
+import { adaptOffer, adaptOffers, adaptComments } from '../utils/adapter';
 
 const INITIAL_CITY = 'Paris';
 
 const initialState = {
   city: INITIAL_CITY,
   offers: [],
-  reviews,
+  offer: null,
+  offersNear: [],
+  reviews: [],
   filteredOffers: [],
   sortType: SortType.POPULAR,
   activeCard: null,
@@ -48,6 +49,21 @@ const reducer = (state = initialState, action) => {
         filteredOffers: adaptOffers(action.payload)
           .filter(({ city }) => city.name === state.city),
         isDataLoaded: true,
+      };
+    case ActionType.LOAD_ONE_OFFER:
+      return {
+        ...state,
+        offer: adaptOffer(action.payload),
+      };
+    case ActionType.LOAD_OFFERS_NEARBY:
+      return {
+        ...state,
+        offersNear: adaptOffers(action.payload),
+      };
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        reviews: adaptComments(action.payload),
       };
     case ActionType.REQUIRE_AUTHORIZATION:
       return {

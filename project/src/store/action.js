@@ -9,6 +9,9 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
   SET_USER: 'SET_USER',
   SET_ERROR: 'SET_ERROR',
+  LOAD_ONE_OFFER: 'LOAD__ONE_OFFER',
+  LOAD_OFFERS_NEARBY: 'LOAD_OFFERS_NEARBY',
+  LOAD_COMMENTS: 'LOAD_COMMENTS',
 };
 
 export const ActionCreator = {
@@ -50,5 +53,17 @@ export const ActionCreator = {
   setError: (message) => ({
     type: ActionType.SET_ERROR,
     payload: message,
+  }),
+  loadOneOffer: (offer) => ({
+    type: ActionType.LOAD_ONE_OFFER,
+    payload: offer,
+  }),
+  loadOffersNearBy: (offers) => ({
+    type: ActionType.LOAD_OFFERS_NEARBY,
+    payload: offers,
+  }),
+  loadComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
   }),
 };

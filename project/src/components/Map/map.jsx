@@ -33,7 +33,7 @@ const addMarker = (offer, map, markerIcon) => {
     .addTo(map);
 };
 
-function Map({ filteredOffers, activeCard }) {
+function Map({ filteredOffers, activeCard, isFromOneOffer = false, offersNear }) {
   const city = filteredOffers[FIRST_INDEX].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -48,11 +48,15 @@ function Map({ filteredOffers, activeCard }) {
 
       const active = filteredOffers.find((offer) => offer.id === activeCard);
       active && addMarker(active, map, activeIcon);
-      filteredOffers
+
+      let offers;
+      isFromOneOffer ? offers = offersNear : offers = filteredOffers;
+
+      offers
         .filter((offer) => offer.id !== activeCard)
         .forEach((offer) => addMarker(offer, map, icon));
     }
-  }, [map, filteredOffers, activeCard]);
+  }, [map, filteredOffers, activeCard, isFromOneOffer, offersNear]);
 
   return (
     <div
@@ -67,11 +71,14 @@ function Map({ filteredOffers, activeCard }) {
 Map.propTypes = {
   filteredOffers: offersPropTypes,
   activeCard: PropTypes.number,
+  isFromOneOffer: PropTypes.bool,
+  offersNear: offersPropTypes,
 };
 
-const mapStateToProps = ({ filteredOffers, activeCard }) => ({
+const mapStateToProps = ({ filteredOffers, activeCard, offersNear }) => ({
   filteredOffers,
   activeCard,
+  offersNear,
 });
 
 export { Map };
