@@ -1,27 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveCard } from '../../store/action';
 import SortForm from '../Sort-form/sort-form';
 import Card from '../Card/card';
-import offersPropTypes from './offers.prop';
 import { PlaceType } from '../../const';
 import { setSort } from '../../utils/sort';
+import { getCity, getFilteredOffers, getSortType } from '../../store/offers/selectors';
 
-function CitiesPlaces({ filteredOffers, city, setActiveCard }) {
+function CitiesPlaces() {
+  const filteredOffers = useSelector(getFilteredOffers);
+  const city = useSelector(getCity);
+  const sortType = useSelector(getSortType);
+
+  const sortedOffers = setSort(filteredOffers.slice(), sortType);
+
+  const dispatch = useDispatch();
+  const onSetActiveCard = (id) => {
+    dispatch(setActiveCard(id));
+  };
+
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
+      <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
       <SortForm />
       <div className="cities__places-list places__list tabs__content">
         {
-          filteredOffers.map((offer) => (
+          sortedOffers.map((offer) => (
             <Card
               key={offer.id}
               offer={offer}
-              onMouseEnter={() => setActiveCard(offer.id)}
-              onMouseLeave={() => setActiveCard()}
+              onMouseEnter={() => onSetActiveCard(offer.id)}
+              onMouseLeave={() => onSetActiveCard()}
               placeType={PlaceType.MAIN}
             />
           ))
@@ -31,21 +41,4 @@ function CitiesPlaces({ filteredOffers, city, setActiveCard }) {
   );
 }
 
-CitiesPlaces.propTypes = {
-  filteredOffers: offersPropTypes,
-  city: PropTypes.string.isRequired,
-  setActiveCard: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ city, filteredOffers, sortType }) => ({
-  city,
-  filteredOffers: setSort(filteredOffers.slice(), sortType),
-  sortType,
-});
-
-const mapDispatchToProps = {
-  setActiveCard: ActionCreator.setActiveCard,
-};
-
-export { CitiesPlaces };
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesPlaces);
+export default CitiesPlaces;

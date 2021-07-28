@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { sendComment } from '../../store/api-action';
 import ReviewStar from './review-star';
 import { commentIsValid } from '../../utils/comment-valid';
 
-function ReviewForm({ submitHandler }) {
+function ReviewForm() {
+  const dispatch = useDispatch();
+  const submitHandler = (offerId, data) => {
+    dispatch(sendComment(offerId, data));
+  };
+
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
   const { id } = useParams();
@@ -67,15 +71,4 @@ function ReviewForm({ submitHandler }) {
   );
 }
 
-ReviewForm.propTypes = {
-  submitHandler: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  submitHandler(id, data) {
-    dispatch(sendComment(id, data));
-  },
-});
-
-export { ReviewForm };
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

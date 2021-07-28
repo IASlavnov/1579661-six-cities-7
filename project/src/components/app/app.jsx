@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../Private-route/private-route';
 import HomePage from '../Home-page/home-page';
@@ -13,8 +12,15 @@ import Error from '../Error/error';
 import { AppRoute } from '../../const';
 import { isCheckedAuth } from '../../utils/auth';
 import browserHistory from '../../browser-history';
+import { getIsDataLoaded } from '../../store/offers/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
+import { getError } from '../../store/error/selectors';
 
-function App({ isDataLoaded, authorizationStatus, error }) {
+function App() {
+  const isDataLoaded = useSelector(getIsDataLoaded);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const error = useSelector(getError);
+
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return <Spinner />;
   } else if (error) {
@@ -50,17 +56,4 @@ function App({ isDataLoaded, authorizationStatus, error }) {
   );
 }
 
-App.propTypes = {
-  isDataLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  error: PropTypes.string,
-};
-
-const mapStateToProps = ({ isDataLoaded, authorizationStatus, error }) => ({
-  isDataLoaded,
-  authorizationStatus,
-  error,
-});
-
-export { App };
-export default connect(mapStateToProps)(App);
+export default App;

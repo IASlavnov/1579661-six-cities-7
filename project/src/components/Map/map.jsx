@@ -2,9 +2,10 @@ import React, {useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import offersPropTypes from '../Cities/offers.prop';
+import { getFilteredOffers, getActiveCard } from '../../store/offers/selectors';
+import { getOffersNear } from '../../store/offer/selectors';
 
 const FIRST_INDEX = 0;
 const MARKER_URL = 'img/pin.svg';
@@ -33,7 +34,11 @@ const addMarker = (offer, map, markerIcon) => {
     .addTo(map);
 };
 
-function Map({ filteredOffers, activeCard, isFromOneOffer = false, offersNear }) {
+function Map({ isFromOneOffer = false }) {
+  const filteredOffers = useSelector(getFilteredOffers);
+  const activeCard = useSelector(getActiveCard);
+  const offersNear = useSelector(getOffersNear);
+
   const city = filteredOffers[FIRST_INDEX].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -69,17 +74,7 @@ function Map({ filteredOffers, activeCard, isFromOneOffer = false, offersNear })
 }
 
 Map.propTypes = {
-  filteredOffers: offersPropTypes,
-  activeCard: PropTypes.number,
   isFromOneOffer: PropTypes.bool,
-  offersNear: offersPropTypes,
 };
 
-const mapStateToProps = ({ filteredOffers, activeCard, offersNear }) => ({
-  filteredOffers,
-  activeCard,
-  offersNear,
-});
-
-export { Map };
-export default connect(mapStateToProps, null)(Map);
+export default Map;
