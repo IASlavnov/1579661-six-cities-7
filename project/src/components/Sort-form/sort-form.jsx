@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSortType } from '../../store/action';
 import { sortTypes } from '../../const';
+import { getSortType } from '../../store/offers/selectors';
 
-function SortForm({ sortType, setSortType }) {
+function SortForm() {
+  const sortType = useSelector(getSortType);
+
+  const dispatch = useDispatch();
+  const onSetSortType = (sType) => {
+    dispatch(setSortType(sType));
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -30,7 +37,7 @@ function SortForm({ sortType, setSortType }) {
               className={`places__option ${item === sortType ? 'places__option--active' : ''}`}
               key={item}
               tabIndex="0"
-              onClick={() => setSortType(item)}
+              onClick={() => onSetSortType(item)}
             >
               {item}
             </li>
@@ -41,18 +48,4 @@ function SortForm({ sortType, setSortType }) {
   );
 }
 
-SortForm.propTypes = {
-  sortType: PropTypes.string.isRequired,
-  setSortType: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ sortType }) => ({
-  sortType,
-});
-
-const mapDispatchToProps = {
-  setSortType: ActionCreator.setSortType,
-};
-
-export { SortForm };
-export default connect(mapStateToProps, mapDispatchToProps)(SortForm);
+export default SortForm;

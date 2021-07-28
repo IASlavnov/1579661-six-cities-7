@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../Header/header';
 import ReviewList from '../Review/review-list';
 import ReviewForm from '../Review-form/review-form';
 import Map from '../Map/map';
 import NearPlacesList from '../Near-places/near-places-list';
 import NotFound from '../Not-found/not-found';
-import reviewsPropTypes from '../Review/reviews.prop';
-import offerPropTypes from '../Card/offer.prop';
-import offersPropTypes from '../Cities/offers.prop';
 import { fetchOneOffer, fetchOffersNearBy, fetchComments } from '../../store/api-action';
 import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user/selectors';
+import { getOffer, getOffersNear, getReviews } from '../../store/offer/selectors';
 
-function Room({ authorizationStatus, offer, offersNear, reviews, loadDataById }) {
+function Room() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const offer = useSelector(getOffer);
+  const offersNear = useSelector(getOffersNear);
+  const reviews = useSelector(getReviews);
+
+  const dispatch = useDispatch();
+
+  const loadDataById = useCallback((offerId) => {
+    dispatch(fetchOneOffer(offerId));
+    dispatch(fetchOffersNearBy(offerId));
+    dispatch(fetchComments(offerId));
+  }, [dispatch]);
+
   const { id } = useParams();
   const MAX_IMG_FOR_GALLERY = 6;
 
@@ -140,28 +151,4 @@ function Room({ authorizationStatus, offer, offersNear, reviews, loadDataById })
   );
 }
 
-Room.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  reviews: reviewsPropTypes,
-  offersNear: offersPropTypes,
-  offer: offerPropTypes,
-  loadDataById: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ authorizationStatus, offer, offersNear, reviews }) => ({
-  authorizationStatus,
-  offer,
-  offersNear,
-  reviews,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadDataById(id) {
-    dispatch(fetchOneOffer(id));
-    dispatch(fetchOffersNearBy(id));
-    dispatch(fetchComments(id));
-  },
-});
-
-export { Room };
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

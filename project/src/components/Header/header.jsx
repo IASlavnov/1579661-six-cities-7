@@ -1,11 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { logout } from '../../store/api-action';
+import { getAuthorizationStatus, getEmail } from '../../store/user/selectors';
 
-function Header({ authorizationStatus, email, logoutApp }) {
+function Header() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const email = useSelector(getEmail);
+
+  const dispatch = useDispatch();
+  const logoutApp = () => {
+    dispatch(logout());
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -60,22 +68,4 @@ function Header({ authorizationStatus, email, logoutApp }) {
   );
 }
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  logoutApp: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({ authorizationStatus, email }) => ({
-  authorizationStatus,
-  email,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  logoutApp() {
-    dispatch(logout());
-  },
-});
-
-export { Header };
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

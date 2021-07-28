@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: 'CHANGE_CITY',
   SET_OFFERS: 'SET_OFFERS',
@@ -14,56 +16,52 @@ export const ActionType = {
   LOAD_COMMENTS: 'LOAD_COMMENTS',
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  setOffers: (city) => ({
-    type: ActionType.SET_OFFERS,
-    payload: city,
-  }),
-  setSortType: (sortType) => ({
-    type: ActionType.SET_SORT_TYPE,
-    payload: sortType,
-  }),
-  setActiveCard: (cardId = null) => ({
-    type: ActionType.SET_ACTIVE_CARD,
-    payload: cardId,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRE_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  setUser: (email) => ({
-    type: ActionType.SET_USER,
-    payload: email,
-  }),
-  setError: (message) => ({
-    type: ActionType.SET_ERROR,
-    payload: message,
-  }),
-  loadOneOffer: (offer) => ({
-    type: ActionType.LOAD_ONE_OFFER,
-    payload: offer,
-  }),
-  loadOffersNearBy: (offers) => ({
-    type: ActionType.LOAD_OFFERS_NEARBY,
-    payload: offers,
-  }),
-  loadComments: (comments) => ({
-    type: ActionType.LOAD_COMMENTS,
-    payload: comments,
-  }),
-};
+export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
+  payload: city,
+}));
+
+export const setOffers = createAction(ActionType.SET_OFFERS, (city) => ({
+  payload: city,
+}));
+
+export const setSortType = createAction(ActionType.SET_SORT_TYPE, (sortType) => ({
+  payload: sortType,
+}));
+
+export const setActiveCard = createAction(ActionType.SET_ACTIVE_CARD, (cardId = null) => ({
+  payload: cardId,
+}));
+
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
+  payload: offers,
+}));
+
+export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION, (status) => ({
+  payload: status,
+}));
+
+export const logout = createAction(ActionType.LOGOUT);
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url,
+}));
+
+export const setUser = createAction(ActionType.SET_USER, (email) => ({
+  payload: email,
+}));
+
+export const setError = createAction(ActionType.SET_ERROR, (message) => ({
+  payload: message,
+}));
+
+export const loadOneOffer = createAction(ActionType.LOAD_ONE_OFFER, (offer) => ({
+  payload: offer,
+}));
+
+export const loadOffersNearBy = createAction(ActionType.LOAD_OFFERS_NEARBY, (offers) => ({
+  payload: offers,
+}));
+
+export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) => ({
+  payload: comments,
+}));

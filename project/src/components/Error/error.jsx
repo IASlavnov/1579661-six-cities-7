@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { useDispatch } from 'react-redux';
+import { setError, redirectToRoute } from '../../store/action';
 import { AppRoute } from '../../const';
 
-function Error({ message, onClose }) {
+function Error({ message }) {
+  const dispatch = useDispatch();
+  const onClose = () => {
+    dispatch(setError(null));
+    dispatch(redirectToRoute(AppRoute.ROOT));
+  };
+
   return (
     <>
       <p>Error...</p>
@@ -21,15 +27,6 @@ function Error({ message, onClose }) {
 
 Error.propTypes = {
   message: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onClose() {
-    dispatch(ActionCreator.setError(null));
-    dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT));
-  },
-});
-
-export { Error };
-export default connect(null, mapDispatchToProps)(Error);
+export default Error;
