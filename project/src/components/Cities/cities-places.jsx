@@ -6,13 +6,15 @@ import Card from '../Card/card';
 import { PlaceType } from '../../const';
 import { setSort } from '../../utils/sort';
 import { getCity, getFilteredOffers, getSortType } from '../../store/offers/selectors';
+import cloneDeep from 'lodash.clonedeep';
 
 function CitiesPlaces() {
   const filteredOffers = useSelector(getFilteredOffers);
   const city = useSelector(getCity);
   const sortType = useSelector(getSortType);
 
-  const sortedOffers = setSort(filteredOffers.slice(), sortType);
+  const cloneOffers = cloneDeep(filteredOffers);
+  const sortedOffers = setSort(cloneOffers, sortType);
 
   const dispatch = useDispatch();
   const onSetActiveCard = (id) => {

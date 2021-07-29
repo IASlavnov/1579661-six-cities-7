@@ -11,9 +11,11 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
   SET_USER: 'SET_USER',
   SET_ERROR: 'SET_ERROR',
-  LOAD_ONE_OFFER: 'LOAD__ONE_OFFER',
+  LOAD_ONE_OFFER: 'LOAD_ONE_OFFER',
   LOAD_OFFERS_NEARBY: 'LOAD_OFFERS_NEARBY',
   LOAD_COMMENTS: 'LOAD_COMMENTS',
+  UPDATE_OFFERS: 'UPDATE_OFFERS',
+  LOAD_FAVORITE_OFFERS: 'LOAD_FAVORITE_OFFERS',
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
@@ -33,6 +35,14 @@ export const setActiveCard = createAction(ActionType.SET_ACTIVE_CARD, (cardId = 
 }));
 
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
+  payload: offers,
+}));
+
+export const updateOffers = createAction(ActionType.UPDATE_OFFERS, (offer) => ({
+  payload: offer,
+}));
+
+export const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (offers) => ({
   payload: offers,
 }));
 

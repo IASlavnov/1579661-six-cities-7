@@ -1,10 +1,22 @@
 import { loadOffers, setError, loadOneOffer, redirectToRoute, loadOffersNearBy,
-  loadComments, requireAuthorization, setUser, logout as closeSession } from './action';
+  loadComments, requireAuthorization, setUser, logout as closeSession, loadFavoriteOffers, updateOffers } from './action';
 import { ApiRoute, AuthorizationStatus, AppRoute } from '../const';
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.HOTELS)
     .then(({data}) => dispatch(loadOffers(data)))
+    .catch((error) => dispatch(setError(error.message)))
+);
+
+export const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(ApiRoute.FAVORITE)
+    .then(({data}) => dispatch(loadFavoriteOffers(data)))
+    .catch((error) => dispatch(setError(error.message)))
+);
+
+export const changeOffers = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${ApiRoute.FAVORITE}/${id}/${+status}`)
+    .then(({data}) => dispatch(updateOffers(data)))
     .catch((error) => dispatch(setError(error.message)))
 );
 
@@ -34,8 +46,10 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(ApiRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(setUser(email)))
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(setUser(data.email));
+    })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
     .catch((error) => dispatch(setError(error.message)))

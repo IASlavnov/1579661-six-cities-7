@@ -10,9 +10,7 @@ function Header() {
   const email = useSelector(getEmail);
 
   const dispatch = useDispatch();
-  const logoutApp = () => {
-    dispatch(logout());
-  };
+  const logoutApp = () => dispatch(logout());
 
   return (
     <header className="header">
