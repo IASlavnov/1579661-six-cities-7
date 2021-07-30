@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Header from '../Header/header';
 import FavoritesList from './favorites-list';
-import { getOffers } from '../../store/offers/selectors';
+import EmptyFavorites from './empty-favorites';
+import { getFavoriteOffers } from '../../store/offers/selectors';
+import { fetchFavoriteOffers } from '../../store/api-action';
 
 function Favorites() {
-  const offers = useSelector(getOffers);
+  const favoriteOffers = useSelector(getFavoriteOffers);
 
-  const favoriteOffers = offers.filter(({ isFavorite }) => isFavorite);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffers());
+  }, [dispatch]);
 
   return (
     <div className="page">
       <Header />
 
-      <main className="page__main page__main--favorites">
+      <main
+        className={`page__main page__main--favorites ${favoriteOffers.length ? '' : 'page__main--favorites-empty'}`}
+      >
         <div className="page__favorites-container container">
-          <FavoritesList offers={favoriteOffers} />
+          {
+            favoriteOffers.length ?
+              <FavoritesList offers={favoriteOffers} /> :
+              <EmptyFavorites />
+          }
         </div>
       </main>
       <footer className="footer container">

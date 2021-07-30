@@ -7,15 +7,14 @@ import ReviewForm from '../Review-form/review-form';
 import Map from '../Map/map';
 import NearPlacesList from '../Near-places/near-places-list';
 import NotFound from '../Not-found/not-found';
-import { fetchOneOffer, fetchOffersNearBy, fetchComments } from '../../store/api-action';
+import { fetchOneOffer, fetchOffersNearBy, fetchComments, changeOffers } from '../../store/api-action';
 import { AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../store/user/selectors';
-import { getOffer, getOffersNear, getReviews } from '../../store/offer/selectors';
+import { getOffer, getReviews } from '../../store/offer/selectors';
 
 function Room() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const offer = useSelector(getOffer);
-  const offersNear = useSelector(getOffersNear);
   const reviews = useSelector(getReviews);
 
   const dispatch = useDispatch();
@@ -25,6 +24,11 @@ function Room() {
     dispatch(fetchOffersNearBy(offerId));
     dispatch(fetchComments(offerId));
   }, [dispatch]);
+
+  const addToFavorite = (offerId, offerStatus) => {
+    dispatch(changeOffers(offerId, offerStatus))
+      .then(() => dispatch(fetchOneOffer(offerId)));
+  };
 
   const { id } = useParams();
   const MAX_IMG_FOR_GALLERY = 6;
@@ -67,6 +71,7 @@ function Room() {
                   {offer.title}
                 </h1>
                 <button
+                  onClick={() => addToFavorite(id, !offer.isFavorite)}
                   className={`property__bookmark-button button ${offer.isFavorite ? 'property__bookmark-button--active' : ''}`}
                   type="button"
                 >
@@ -144,7 +149,7 @@ function Room() {
           </section>
         </section>
         <div className="container">
-          <NearPlacesList offers={offersNear} />
+          <NearPlacesList />
         </div>
       </main>
     </div>

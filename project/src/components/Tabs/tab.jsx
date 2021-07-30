@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeCity, setOffers } from '../../store/action';
 import { Link } from 'react-router-dom';

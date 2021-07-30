@@ -1,10 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Header from '../Header/header';
 import Tabs from '../Tabs/tabs';
 import Cities from '../Cities/cities';
+import EmptyHomePage from './empty-home-page';
 import { CITIES } from '../../const';
+import { getFilteredOffers } from '../../store/offers/selectors';
 
 function HomePage() {
+  const filteredOffers = useSelector(getFilteredOffers);
+
   return (
     <>
       <div style={{ display: 'none' }}>
@@ -24,9 +29,15 @@ function HomePage() {
       <div className="page page--gray page--main">
         <Header />
 
-        <main className="page__main page__main--index">
+        <main
+          className={`page__main page__main--index ${filteredOffers.length ? '' : 'page__main--index-empty'}`}
+        >
           <Tabs cities={CITIES} />
-          <Cities />
+          {
+            filteredOffers.length ?
+              <Cities /> :
+              <EmptyHomePage />
+          }
         </main>
       </div>
     </>

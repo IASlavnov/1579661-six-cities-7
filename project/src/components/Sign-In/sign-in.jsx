@@ -1,11 +1,14 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/api-action';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Header from '../Header/header';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
 function SignIn() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
   const dispatch = useDispatch();
   const onSubmit = (authData) => {
     dispatch(login(authData));
@@ -22,6 +25,10 @@ function SignIn() {
       password: passwordRef.current.value,
     });
   };
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={AppRoute.ROOT} />;
+  }
 
   return (
     <div className="page page--gray page--login">

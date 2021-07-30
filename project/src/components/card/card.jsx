@@ -1,12 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useDispatch } from 'react-redux';
+import { changeOffers, fetchFavoriteOffers, fetchOneOffer } from '../../store/api-action';
 import PropTypes from 'prop-types';
 import cardPropTypes from './offer.prop';
 import { PlaceCardType } from '../../const';
 
 function Card({offer: { id, isPremium, isFavorite, previewImage, price, rating, title, type },
   onMouseEnter = () => {}, onMouseLeave = () => {}, placeType}) {
+
+  const dispatch = useDispatch();
+
+  const addToFavorite = (offerId, offerStatus) => {
+    dispatch(changeOffers(offerId, offerStatus))
+      .then(() => {
+        dispatch(fetchFavoriteOffers());
+        dispatch(fetchOneOffer(offerId));
+      });
+  };
+
   return (
     <article
       className={PlaceCardType[placeType].className}
@@ -36,6 +49,7 @@ function Card({offer: { id, isPremium, isFavorite, previewImage, price, rating, 
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
+            onClick={() => addToFavorite(id, !isFavorite)}
             className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
           >

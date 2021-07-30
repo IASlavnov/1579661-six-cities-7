@@ -6,7 +6,7 @@ import offersPropTypes from '../Cities/offers.prop';
 function FavoritesList({ offers }) {
   const cities = offers.map(({ city }) => city.name);
   const uniqueCities = Array.from(new Set(cities));
-  const favoriteItems = uniqueCities.map((city) => <FavoriteItem key={city} city={city} offers={offers} />);
+  const favoriteItems = uniqueCities.map((city) => <FavoriteItem key={city} city={city} offers={offers.filter((offer) => offer.city.name === city)} />);
 
   return (
     <section className="favorites">

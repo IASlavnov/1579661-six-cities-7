@@ -4,8 +4,7 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFilteredOffers, getActiveCard } from '../../store/offers/selectors';
-import { getOffersNear } from '../../store/offer/selectors';
+import { getFilteredOffers, getActiveCard, getOffersNear } from '../../store/offers/selectors';
 
 const FIRST_INDEX = 0;
 const MARKER_URL = 'img/pin.svg';
