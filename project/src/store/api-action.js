@@ -48,6 +48,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(ApiRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
+      api.defaults.headers['x-token'] = data.token;
       dispatch(setUser(data.email));
     })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))

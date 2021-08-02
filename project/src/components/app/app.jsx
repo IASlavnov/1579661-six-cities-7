@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from '../Private-route/private-route';
 import HomePage from '../Home-page/home-page';
 import SignIn from '../Sign-In/sign-in';
@@ -11,7 +11,6 @@ import Spinner from '../Spinner/spinner';
 import Error from '../Error/error';
 import { AppRoute } from '../../const';
 import { isCheckedAuth } from '../../utils/auth';
-import browserHistory from '../../browser-history';
 import { getIsDataLoaded } from '../../store/offers/selectors';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 import { getError } from '../../store/error/selectors';
@@ -28,31 +27,29 @@ function App() {
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route path={AppRoute.SIGNIN} exact>
-          <SignIn />
-        </Route>
-        <PrivateRoute
-          path={AppRoute.ROOT}
-          exact
-          render={() => <HomePage />}
-        />
-        <PrivateRoute
-          path={AppRoute.FAVORITES}
-          exact
-          render={() => <Favorites />}
-        />
-        <PrivateRoute
-          path={AppRoute.ROOM}
-          exact
-          render={() => <Room />}
-        />
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route path={AppRoute.SIGNIN} exact>
+        <SignIn />
+      </Route>
+      <PrivateRoute
+        path={AppRoute.ROOT}
+        exact
+        render={() => <HomePage />}
+      />
+      <PrivateRoute
+        path={AppRoute.FAVORITES}
+        exact
+        render={() => <Favorites />}
+      />
+      <PrivateRoute
+        path={AppRoute.ROOM}
+        exact
+        render={() => <Room />}
+      />
+      <Route>
+        <NotFound />
+      </Route>
+    </Switch>
   );
 }
 
