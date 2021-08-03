@@ -1,21 +1,21 @@
 import { createAction } from '@reduxjs/toolkit';
 
 export const ActionType = {
-  CHANGE_CITY: 'CHANGE_CITY',
-  SET_OFFERS: 'SET_OFFERS',
-  SET_SORT_TYPE: 'SET_SORT_TYPE',
-  SET_ACTIVE_CARD: 'SET_ACTIVE_CARD',
-  LOAD_OFFERS: 'LOAD_OFFERS',
-  REQUIRE_AUTHORIZATION: 'REQUIRE_AUTHORIZATION',
-  LOGOUT: 'LOGOUT',
-  REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
-  SET_USER: 'SET_USER',
-  SET_ERROR: 'SET_ERROR',
-  LOAD_ONE_OFFER: 'LOAD_ONE_OFFER',
-  LOAD_OFFERS_NEARBY: 'LOAD_OFFERS_NEARBY',
-  LOAD_COMMENTS: 'LOAD_COMMENTS',
-  UPDATE_OFFERS: 'UPDATE_OFFERS',
-  LOAD_FAVORITE_OFFERS: 'LOAD_FAVORITE_OFFERS',
+  CHANGE_CITY: 'data/change-city',
+  SET_OFFERS: 'data/set-offers',
+  SET_SORT_TYPE: 'data/set-sort-type',
+  SET_ACTIVE_CARD: 'data/set-active-card',
+  LOAD_OFFERS: 'data/load-offers',
+  REQUIRE_AUTHORIZATION: 'user/require-authorization',
+  LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'navigation/redirect-to-route',
+  SET_USER: 'user/set-user',
+  SET_ERROR: 'errors/set-error',
+  LOAD_ONE_OFFER: 'data/load-one-offer',
+  LOAD_OFFERS_NEARBY: 'data/load-offers-nearby',
+  LOAD_COMMENTS: 'data/load-comments',
+  UPDATE_OFFERS: 'data/update-offers',
+  LOAD_FAVORITE_OFFERS: 'data/load-favorite-offers',
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({

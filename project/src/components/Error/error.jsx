@@ -6,7 +6,7 @@ import { AppRoute } from '../../const';
 
 function Error({ message }) {
   const dispatch = useDispatch();
-  const onClose = () => {
+  const handleErrorClose = () => {
     dispatch(setError(null));
     dispatch(redirectToRoute(AppRoute.ROOT));
   };
@@ -16,7 +16,7 @@ function Error({ message }) {
       <p>Error...</p>
       <p>{message}</p>
       <button
-        onClick={onClose}
+        onClick={handleErrorClose}
         type='button'
       >
         Назад

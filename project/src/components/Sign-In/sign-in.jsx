@@ -10,17 +10,17 @@ function SignIn() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const dispatch = useDispatch();
-  const onSubmit = (authData) => {
+  const handleSubmit = (authData) => {
     dispatch(login(authData));
   };
 
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  const handleSubmit = (evt) => {
+  const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    handleSubmit({
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
@@ -42,7 +42,7 @@ function SignIn() {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>

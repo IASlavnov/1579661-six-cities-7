@@ -7,7 +7,7 @@ import { commentIsValid } from '../../utils/comment-valid';
 
 function ReviewForm() {
   const dispatch = useDispatch();
-  const submitHandler = (offerId, data) => {
+  const handleFormSubmit = (offerId, data) => {
     dispatch(sendComment(offerId, data));
   };
 
@@ -19,7 +19,7 @@ function ReviewForm() {
     <form
       onSubmit={(evt) => {
         evt.preventDefault();
-        submitHandler(id, {comment: review, rating: rating});
+        handleFormSubmit(id, {comment: review, rating: rating});
         setReview('');
         setRating(0);
       }}
@@ -38,7 +38,7 @@ function ReviewForm() {
             {stars: 1, title: 'terrible'},
           ].map(({ stars, title }) => (
             <ReviewStar
-              onChange={(value) => setRating(value)}
+              handleInputChange={(value) => setRating(value)}
               key={title}
               stars={stars}
               title={title}

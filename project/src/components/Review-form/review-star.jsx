@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function ReviewStar({ stars, title, onChange }) {
+function ReviewStar({ stars, title, handleInputChange }) {
   const [value, setValue] = useState(0);
 
   return (
     <>
       <input
         onChange={(e) => {
-          onChange(e.target.value);
+          handleInputChange(e.target.value);
           setValue(+e.target.value);
         }}
         className="form__rating-input visually-hidden"
@@ -30,7 +30,7 @@ function ReviewStar({ stars, title, onChange }) {
 ReviewStar.propTypes = {
   stars: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
 };
 
 export default ReviewStar;

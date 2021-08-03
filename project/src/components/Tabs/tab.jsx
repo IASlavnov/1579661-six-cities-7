@@ -9,7 +9,7 @@ function Tab({ tab }) {
   const city = useSelector(getCity);
 
   const dispatch = useDispatch();
-  const onTabClick = (c) => {
+  const handleTabClick = (c) => {
     dispatch(changeCity(c));
     dispatch(setOffers(c));
   };
@@ -19,7 +19,7 @@ function Tab({ tab }) {
       <Link
         className={`locations__item-link tabs__item ${tab === city ? 'tabs__item--active' : ''}`}
         to={'/'}
-        onClick={() => onTabClick(tab)}
+        onClick={() => handleTabClick(tab)}
       >
         <span>{tab}</span>
       </Link>

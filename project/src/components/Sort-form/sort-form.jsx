@@ -8,7 +8,7 @@ function SortForm() {
   const sortType = useSelector(getSortType);
 
   const dispatch = useDispatch();
-  const onSetSortType = (sType) => {
+  const handleSetSortType = (sType) => {
     dispatch(setSortType(sType));
   };
 
@@ -37,7 +37,7 @@ function SortForm() {
               className={`places__option ${item === sortType ? 'places__option--active' : ''}`}
               key={item}
               tabIndex="0"
-              onClick={() => onSetSortType(item)}
+              onClick={() => handleSetSortType(item)}
             >
               {item}
             </li>
